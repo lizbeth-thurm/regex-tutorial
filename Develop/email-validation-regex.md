@@ -17,7 +17,6 @@ This tutorial will explain in detail how this regular expression (abbreviated "r
 - [Anchors](#anchors)
 - [Quantifiers](#quantifiers)
 - [Character Classes](#character-classes)
-- [Flags](#flags)
 - [Grouping and Capturing](#grouping-and-capturing)
 - [Bracket Expressions](#bracket-expressions)
 - [Greedy and Lazy Match](#greedy-and-lazy-match)
@@ -92,13 +91,21 @@ In the email validation regex, the character class occurs three times; once at t
 
 Note that the arrangement `\.` indicates an escape character for the period.  This is necessary because ordinarily the period has an actual fucntion within a character class and so the slash sets it off as a character to be searched, rather than using it for its other purpose (which for `.` is the wildcard character and will match *any* character in a string).
 
-### Flags
-
-
-
 ### Grouping and Capturing
 
+Grouping in a regular expression is accomplished using parentheses `()`.  The symbols inside the parentheses are "captured" allowing operators to be applied to the entire group.
 
+In the expression above, grouping occurs three times; in the beginning, after the "@" symbol, and at the end:
+
+- start:
+    - `^([a-z0-9_\.-]+)`
+    - This indicates that everything inside the parentheses is grouped and the `^` operator is applied to the whole thing.
+- after "@":
+    - `([\da-z\.-]+)\.`
+    - This simply groups everything inside the parentheses to occur before the '.' before the extension at the end of the email address.
+- end:
+    - `([a-z\.]{2,6})$`
+    - This indicates that everything inside the parentheses is grouped and then the `$` operator is applied.
 
 ### Bracket Expressions
 
