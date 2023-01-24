@@ -120,7 +120,9 @@ In the email validation regex, the bracket expression occurs three times; once a
 
 ### Greedy and Lazy Match
 
+Regex operators can be greedy or lazy.  Operators are greedy by default meaning that they will match as many instances of what they are operating on as possible.  For example, the `+` operator (which matches one or more of what comes before it) is greedy by default.  Therefore, in the email validation expression, `+` applied to `[a-z0-9_\.-]` will match as many of the characters occuring in a string as it can.
 
+Operators are made lazy by adding a `?` to it.  A lazy operator will match the minimum bnumber of instances that it is searching for.  There is no lazy matching in the email validation expression.
 
 ### Boundaries
 
