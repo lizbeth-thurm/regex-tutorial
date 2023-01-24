@@ -72,9 +72,38 @@ Specifically, this pertains to the end part an email address, such as ".com" or 
 
 ### Character Classes
 
-Character classes in regex are set off by square brackets: `[]`.  The expression will match any of the characters inside the brackets.
+Character classes in regex establish characters to be matched or ranges of characters.  The following character classes are used in the email validation regex:
 
-In the email validation regex, the character class occurs three times; once at the start, once after the "@" symbol, and once at the end:
+- `[a-z]`
+    - Matches any letter, a through z.
+- `[0-9]`
+    - Matches any numeral, 0 through 9.
+- `\d`
+    - Also matches any numeral, 0 through 9.  The "d" stands for "decimal."
+- `.`
+    - The arrangement `\.` indicates an escape character for the period.  This is necessary because ordinarily the period has an actual fucntion within a character class and so the slash sets it off as a character to be searched, rather than using it for its other purpose (which for `.` is the wildcard character and will match *any* character in a string).
+
+### Grouping and Capturing
+
+Grouping in a regular expression is accomplished using parentheses `()`.  The symbols inside the parentheses are "captured" allowing operators to be applied to the entire group.
+
+In the expression above, grouping occurs three times; in the beginning, after the "@" symbol, and at the end:
+
+- start:
+    - `^([a-z0-9_\.-]+)`
+    - This indicates that everything inside the parentheses is grouped and the `^` operator is applied to the whole thing.
+- after "@":
+    - `([\da-z\.-]+)\.`
+    - This simply groups everything inside the parentheses to occur before the "." before the extension at the end of the email address.
+- end:
+    - `([a-z\.]{2,6})$`
+    - This indicates that everything inside the parentheses is grouped and then the `$` operator is applied.
+
+### Bracket Expressions
+
+Bracket expressions in regex are set off by square brackets: `[]`.  The expression will match any of the characters inside the brackets.
+
+In the email validation regex, the bracket expression occurs three times; once at the start, once after the "@" symbol, and once at the end:
 
 - start:
     - `[a-z0-9_\.-]`
@@ -88,28 +117,6 @@ In the email validation regex, the character class occurs three times; once at t
     - `[a-z\.]`
         - This indicates that the expression will match any letter OR periods.
         - this pertains to the extension at the end of an email address following a period (such as ".com").
-
-Note that the arrangement `\.` indicates an escape character for the period.  This is necessary because ordinarily the period has an actual fucntion within a character class and so the slash sets it off as a character to be searched, rather than using it for its other purpose (which for `.` is the wildcard character and will match *any* character in a string).
-
-### Grouping and Capturing
-
-Grouping in a regular expression is accomplished using parentheses `()`.  The symbols inside the parentheses are "captured" allowing operators to be applied to the entire group.
-
-In the expression above, grouping occurs three times; in the beginning, after the "@" symbol, and at the end:
-
-- start:
-    - `^([a-z0-9_\.-]+)`
-    - This indicates that everything inside the parentheses is grouped and the `^` operator is applied to the whole thing.
-- after "@":
-    - `([\da-z\.-]+)\.`
-    - This simply groups everything inside the parentheses to occur before the '.' before the extension at the end of the email address.
-- end:
-    - `([a-z\.]{2,6})$`
-    - This indicates that everything inside the parentheses is grouped and then the `$` operator is applied.
-
-### Bracket Expressions
-
-
 
 ### Greedy and Lazy Match
 
