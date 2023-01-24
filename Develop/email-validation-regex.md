@@ -16,7 +16,6 @@ This tutorial will explain in detail how this regular expression (abbreviated "r
 
 - [Anchors](#anchors)
 - [Quantifiers](#quantifiers)
-- [OR Operator](#or-operator)
 - [Character Classes](#character-classes)
 - [Flags](#flags)
 - [Grouping and Capturing](#grouping-and-capturing)
@@ -70,17 +69,28 @@ In the case of the email validation expression, this occurs in the form of `{2 ,
 
 Therefore, this expression will match any alphanumeric character or period if it occurs between 2 and 6 times.
 
-Specifically, this 
-
-
-
-### OR Operator
-
-
+Specifically, this pertains to the end part an email address, such as ".com" or ".edu".
 
 ### Character Classes
 
+Character classes in regex are set off by square brackets: `[]`.  The expression will match any of the characters inside the brackets.
 
+In the email validation regex, the character class occurs three times; once at the start, once after the "@" symbol, and once at the end:
+
+- start:
+    - `[a-z0-9_\.-]`
+        - This indicates that the expression will match any alphanumeric character OR underscore, period, or dash.
+        - This pertains to the first part of an email address before the "@" symbol.
+- after @:
+    - `[\da-z\.-]`
+        - This indicates that the expression will match any decimal number (indicated by `\d`) OR letter, period, or dash.
+        - This pertains to the part of an email address after the "@" symbol but before the extension at the end following the period.
+- end:
+    - `[a-z\.]`
+        - This indicates that the expression will match any letter OR periods.
+        - this pertains to the extension at the end of an email address following a period (such as ".com").
+
+Note that the arrangement `\.` indicates an escape character for the period.  This is necessary because ordinarily the period has an actual fucntion within a character class and so the slash sets it off as a character to be searched, rather than using it for its other purpose (which for `.` is the wildcard character and will match *any* character in a string).
 
 ### Flags
 
